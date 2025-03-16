@@ -21,7 +21,7 @@ function updating() { echo -en "\r\033[K$(printf %-${padding}s """$program"""): 
 function updated() { echo -e "\r\033[K$(printf %-${padding}s """$program"""): ${GREEN}Updated${NC}"; }
 function failed() { echo -e "\r\033[K$(printf %-${padding}s """$program"""): ${RED}Failed${NC} - See $INSTALL_LOG for more details"; }
 
-function install() {
+function do-install() {
   if command -v "$1" &>/dev/null; then
     installed
   else
@@ -35,6 +35,7 @@ function install() {
       }
     else
       {
+        # shellcheck disable=SC2024
         DEBIAN_FRONTEND=noninteractiv sudo apt install -y "$1" >>"$INSTALL_LOG" 2>&1 &&
           installed
       } || {
@@ -48,7 +49,7 @@ function backup() {
   base="${1%/*}"
   file="${1##*/}"
   backupdir="$base/dotfiles-backup"
-  mkdir -p $backupdir
+  mkdir -p "$backupdir"
   cp "$1" "$backupdir"/"$file"-backup-"$(date +%s)" && rm "$1"
 }
 
@@ -105,6 +106,7 @@ if darwin; then
       NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL "$homebrew_url")" >>"$INSTALL_LOG" 2>&1
       (
         echo
+        # shellcheck disable=SC2016
         echo 'eval "$(/opt/homebrew/bin/brew shellenv)"'
       ) >>/Users/levi/.zprofile
       eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -125,6 +127,7 @@ program="apt"
 if linux; then
   updating
   {
+    # shellcheck disable=SC2024
     sudo apt update >>"$INSTALL_LOG" 2>&1
     updated
   } || {
@@ -138,7 +141,7 @@ fi
 #
 # ###############################
 
-program="curl" install curl
+program="curl" do-install curl
 
 # ###############################
 #
@@ -146,7 +149,7 @@ program="curl" install curl
 #
 # ###############################
 
-program="make" install make
+program="make" do-install make
 
 # ###############################
 #
@@ -154,7 +157,7 @@ program="make" install make
 #
 # ###############################
 
-program="gnu stow" install stow
+program="gnu stow" do-install stow
 
 # ###############################
 #
@@ -162,7 +165,7 @@ program="gnu stow" install stow
 #
 # ###############################
 
-program="ack" install ack
+program="ack" do-install ack
 [[ ! -f "$HOME/.ackrc" ]] || backup "$HOME/.ackrc"
 stow -d "$STOWED" -t "$HOME" ack
 
@@ -172,7 +175,7 @@ stow -d "$STOWED" -t "$HOME" ack
 #
 # ###############################
 
-program="ripgrep" install ripgrep
+program="ripgrep" do-install ripgrep
 
 # ###############################
 #
@@ -180,7 +183,7 @@ program="ripgrep" install ripgrep
 #
 # ###############################
 
-program="luarocks" install luarocks
+program="luarocks" do-install luarocks
 
 # ###############################
 #
@@ -189,9 +192,9 @@ program="luarocks" install luarocks
 # ###############################
 
 if darwin; then
-  program="fd-find" install fd
+  program="fd-find" do-install fd
 else
-  program="fd-find" install fd-find
+  program="fd-find" do-install fd-find
 fi
 
 # ###############################
@@ -200,7 +203,7 @@ fi
 #
 # ###############################
 
-program="htop" install htop
+program="htop" do-install htop
 
 # ###############################
 #
@@ -209,7 +212,7 @@ program="htop" install htop
 # ###############################
 
 # This will work with Ubuntu 20.10+
-program="eza" install eza
+program="eza" do-install eza
 
 # ###############################
 #
@@ -217,7 +220,7 @@ program="eza" install eza
 #
 # ###############################
 
-program="fzf" install fzf
+program="fzf" do-install fzf
 
 # ###############################
 #
@@ -225,7 +228,7 @@ program="fzf" install fzf
 #
 # ###############################
 
-program="bat" install bat
+program="bat" do-install bat
 # [[ ! "$(uname -s)" = "Linux" ]] || alias
 
 # ###############################
@@ -234,7 +237,7 @@ program="bat" install bat
 #
 # ###############################
 
-program="fd" install fd
+program="fd" do-install fd
 
 # ###############################
 #
@@ -242,7 +245,7 @@ program="fd" install fd
 #
 # ###############################
 
-program="sd" install sd
+program="sd" do-install sd
 
 # ###############################
 #
@@ -250,7 +253,7 @@ program="sd" install sd
 #
 # ###############################
 
-program="ripgrep" install ripgrep
+program="ripgrep" do-install ripgrep
 
 # ###############################
 #
@@ -258,7 +261,7 @@ program="ripgrep" install ripgrep
 #
 # ###############################
 
-program="ripgrep" install ripgrep
+program="lazygit" do-install lazygit
 
 # ###############################
 #
@@ -266,7 +269,7 @@ program="ripgrep" install ripgrep
 #
 # ###############################
 
-program="git" install git
+program="git" do-install git
 [[ ! -f "$HOME/.gitconfig" ]] || backup "$HOME/.gitconfig"
 [[ ! -f "$HOME/.gitignore_global" ]] || backup "$HOME/.gitignore_global"
 stow -d "$STOWED" -t "$HOME" git
@@ -277,7 +280,7 @@ stow -d "$STOWED" -t "$HOME" git
 #
 # ###############################
 
-program="git gui" install git-gui
+program="git gui" do-install git-gui
 
 # ###############################
 #
@@ -285,7 +288,7 @@ program="git gui" install git-gui
 #
 # ###############################
 
-program="git delta" install git-delta
+program="git delta" do-install git-delta
 
 # ###############################
 #
@@ -293,7 +296,7 @@ program="git delta" install git-delta
 #
 # ###############################
 
-program="entr" install entr
+program="entr" do-install entr
 
 # ###############################
 #
@@ -301,7 +304,7 @@ program="entr" install entr
 #
 # ###############################
 
-program="zsh" install zsh
+program="zsh" do-install zsh
 
 # ###############################
 #
@@ -343,11 +346,12 @@ touch ~/.zshrc-tokens
 #
 # ###############################
 
-program="python" install python3
+program="python" do-install python3
 
 if darwin; then
   pip3 install neovim --break-system-packages >>"$INSTALL_LOG" 2>&1
 else
+  # shellcheck disable=SC2024
   DEBIAN_FRONTEND=noninteractiv sudo apt install -y pip >>"$INSTALL_LOG" 2>&1
   pip install neovim --break-system-packages >>"$INSTALL_LOG" 2>&1
 fi
@@ -358,7 +362,7 @@ fi
 #
 # ###############################
 
-program="npm" install npm
+program="npm" do-install npm
 
 # ###############################
 #
@@ -366,7 +370,7 @@ program="npm" install npm
 #
 # ###############################
 
-program="go" install golang
+program="go" do-install golang
 
 # ###############################
 #
@@ -415,7 +419,7 @@ fi
 # Update the system VIM.
 # Even though we plan to use nvim, this is needed
 #   for vim-go to work correctly
-program="vim" install vim
+program="vim" do-install vim
 [[ ! -f "$HOME/.vimrc" ]] || backup "$HOME/.vimrc"
 
 # ###############################
@@ -425,7 +429,7 @@ program="vim" install vim
 # ###############################
 
 if darwin; then
-  program="neovim" install neovim
+  program="neovim" do-install neovim
 else
   # Need nvim > 10.0 - Easiest way to get it is snap
   checking
@@ -434,6 +438,7 @@ else
   else
     installing
     {
+      # shellcheck disable=SC2024
       sudo snap install --beta nvim --classic >>"$INSTALL_LOG" 2>&1
       installed
     } || {
@@ -481,7 +486,7 @@ else
         rm warpdotdev.gpg
         sudo apt update
       ) >>"$INSTALL_LOG" 2>&1
-      program="warp" install warp-terminal
+      program="warp" do-install warp-terminal
       installed
     } || {
       failed

@@ -20,7 +20,7 @@ vim.keymap.set("i", "jk", "<esc>", { noremap = true, silent = true, desc = "Resu
 --
 -- ###############################
 
--- Use Tabularize to set shortcute `,aa` to align on pipes
+-- Use Tabularize to set shortcut `,aa` to align on pipes
 vim.keymap.set("n", "<leader>tt", ":Tab /|<CR>")
 vim.keymap.set("v", "<leader>tt", ":Tab /|<CR>")
 
