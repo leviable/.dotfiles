@@ -17,3 +17,4 @@ remove-em*.sh
 pseudo-code.txt
 missing-translations/
 **/NOSODATA/
+p21-venv/

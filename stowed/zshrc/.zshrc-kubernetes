@@ -1,5 +1,5 @@
 alias k="kubectl"
-if command -v kubectl 1>&- ; then
+if command -v kubectl &> /dev/null ; then
   source <(k completion zsh)
 fi
 alias kin="k -n ingress-nginx"

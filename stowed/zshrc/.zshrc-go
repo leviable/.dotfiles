@@ -14,7 +14,8 @@ alias cdg="cd $GOPATH/src"
 alias cdgl="cd $GOPATH/src/github.com/leviable"
 alias cdgt="cd $GOPATH/src/gitlab.toyotaconnected.net/tcna-labs"
 export GO111MODULE=auto
-export GOFLAGS=-mod=vendor
+# Having this oncauses mason in lazyvim to report an error when installing gopls 
+# export GOFLAGS=-mod=vendor
 export GOPRIVATE=gitlab.toyotaconnected.net/*
 
 # Copied from old .zshrc, might be old/removable
