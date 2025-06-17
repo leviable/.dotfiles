@@ -1,0 +1,4 @@
+# Docker stuff
+if command -v dust &> /dev/null; then
+  alias du='dust'
+fi

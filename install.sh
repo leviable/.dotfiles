@@ -199,6 +199,14 @@ fi
 
 # ###############################
 #
+# btop
+#
+# ###############################
+
+program="btop" do-install btop
+
+# ###############################
+#
 # Htop
 #
 # ###############################
@@ -249,11 +257,52 @@ program="sd" do-install sd
 
 # ###############################
 #
-# ripgrep
+# hexyl
 #
 # ###############################
 
-program="ripgrep" do-install ripgrep
+program="hexyl" do-install hexyl
+
+# ###############################
+#
+# hyperfine
+#
+# ###############################
+
+program="hyperfine" do-install hyperfine
+
+# ###############################
+#
+# watchexec
+#
+# ###############################
+
+program="watchexec" do-install watchexec
+
+# ###############################
+#
+# dust
+#
+# ###############################
+
+program="dust" do-install dust
+
+# ###############################
+#
+# zoxide
+#
+# ###############################
+
+program="zoxide" do-install zoxide
+
+# ###############################
+#
+# deb-get
+# http://github.com/wimpysanalworld/deb-get
+#
+# ###############################
+
+program="deb-get" do-install deb-get
 
 # ###############################
 #
