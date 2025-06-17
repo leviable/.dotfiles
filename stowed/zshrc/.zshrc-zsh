@@ -17,5 +17,3 @@ if [ -f "$HOME/.zshrc-tokens" ]; then
 else
 	echo "$HOME/.zshrc-tokens NOT CONFIGURED!!!"
 fi
-
-export PATH="/opt/homebrew/bin:$HOME/.local/bin:$PATH"

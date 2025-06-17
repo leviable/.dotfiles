@@ -69,12 +69,24 @@ export ZSH="$HOME/.oh-my-zsh"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
+  aws
+  bazel
   brew
+  direnv
   docker-compose
   docker
+  doctl
+  fd
   fzf
   git
   history
+  jfrog
+  jsontools
+  nmap
+  python
+  ripgrep
+  rust
+  systemd
 )
 
 
@@ -98,3 +110,5 @@ source $HOME/.zshrc-vim
 source $HOME/.zshrc-zsh
 
 eval "$(starship init zsh)"
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
