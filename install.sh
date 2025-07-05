@@ -59,7 +59,7 @@ function backup() {
 #
 # ###############################
 
-echo "Grand sudo access"
+echo "Grant sudo access"
 sudo ls &>/dev/null
 
 # ###############################
